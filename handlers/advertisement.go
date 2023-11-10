@@ -13,6 +13,12 @@ type AdvertisementHandler struct {
 
 func (h *AdvertisementHandler) GetAdvertisements(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	ads := h.Storage.GetAdvertisements()
+	json.NewEncoder(w).Encode(ads)
+}
+
+func (h *AdvertisementHandler) GetAdvertisement(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
 
 	idStr := r.URL.Query().Get("id")
 	id, err := strconv.Atoi(idStr)
